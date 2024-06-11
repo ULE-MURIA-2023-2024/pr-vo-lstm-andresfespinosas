@@ -44,3 +44,5 @@ $ python3 val.py
 ## Results
 
 Put your results here showing the graphs got from [TUM online validation tool](https://cvg.cit.tum.de/data/datasets/rgbd-dataset/online_evaluation).
+
+![alt text](<Captura desde 2024-06-11 20-54-21.png>)

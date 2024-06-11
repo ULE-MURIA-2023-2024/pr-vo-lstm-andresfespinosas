@@ -19,8 +19,13 @@ transform = T.Compose([
 
 
 # TODO: Load the dataset
-train_loader = ...
-
+train_loader = DataLoader(
+    VisualOdometryDataset(
+        "dataset/train",
+        transform=transform,
+        sequence_length=sequence_length
+    )
+)
 
 # train
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -33,11 +38,19 @@ model.train()
 running_loss = 0.0
 
 for epoch in range(epochs):
-
     for images, labels, _ in tqdm(train_loader, f"Epoch {epoch + 1}:"):
 
         # TODO: Train the model
-        ...
+        images = images.to(device)
+        labels = labels.to(device)
+
+        optimizer.zero_grad()
+        outputs = model(images)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
 
     print(
         f"Epoch [{epoch+1}/{epochs}], Loss: {running_loss / len(train_loader)}")
